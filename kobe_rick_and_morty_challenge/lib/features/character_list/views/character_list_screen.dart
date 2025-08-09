@@ -1,12 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../core/models/character_model.dart';
 import '../../../core/services/api_service.dart';
-import 'dart:ui' as ui;
-import 'package:flutter/foundation.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter/services.dart';
-
-import 'package:flutter/widgets.dart';
 
 class CharacterListScreen extends StatefulWidget {
   const CharacterListScreen({super.key});
@@ -28,14 +22,17 @@ class _CharacterListScreenState extends State<CharacterListScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // Define a cor de fundo do Scaffold para combinar com o tema escuro
+      backgroundColor: const Color(0xFF121212),
+
       appBar: AppBar(
         backgroundColor: const Color(0xFF1C1B1F),
-        title: const Text('Rick and Mortry'),
+        // ✅ Título corrigido
+        title: const Text('Rick and Morty'),
         actions: <Widget>[
-          //IconButton
           IconButton(
             icon: const Icon(Icons.account_circle),
-            tooltip: 'Comment Icon',
+            tooltip: 'Profile',
             onPressed: () {},
           ),
         ],
@@ -52,15 +49,13 @@ class _CharacterListScreenState extends State<CharacterListScreen> {
             ListTile(
               title: const Text('Item 1'),
               onTap: () {
-                // Update the state of the app.
-                // ...
+                // Navegar para outra tela ou executar uma ação
               },
             ),
             ListTile(
               title: const Text('Item 2'),
               onTap: () {
-                // Update the state of the app.
-                // ...
+                // Navegar para outra tela ou executar uma ação
               },
             ),
           ],
@@ -80,45 +75,49 @@ class _CharacterListScreenState extends State<CharacterListScreen> {
               itemCount: characters.length,
               itemBuilder: (context, index) {
                 final character = characters[index];
-                return SizedBox(
-                  width: 320,
-                  child: Card(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(
-                        10,
-                      ), 
-                    ),
-                    clipBehavior: Clip
-                        .hardEdge, 
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        Image.network(
-                          character.image,
-                          height: 160,
-                          fit: BoxFit.fill,
-                        ),
-                        Container(
-                          color: Colors
-                              .blue[300], // cor parecida com o seu azul da imagem
-                          padding: const EdgeInsets.symmetric(
-                            vertical: 12,
-                            horizontal: 16,
-                          ),
-                          child: Text(
-                            character.name
-                                .toUpperCase(), // para deixar em maiúsculas como no exemplo
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 14.5,
+                return Card(
+                  margin: const EdgeInsets.symmetric(
+                    vertical: 15,
+                    horizontal: 20,
+                  ),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  clipBehavior: Clip.hardEdge,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Image.network(
+                        character.image,
+                        height: 160,
+                        fit: BoxFit.cover,
+                        loadingBuilder: (context, child, loadingProgress) {
+                          if (loadingProgress == null) return child;
+                          return Container(
+                            height: 160,
+                            color: Colors.grey[800],
+                            child: const Center(
+                              child: CircularProgressIndicator(),
                             ),
-                            textAlign: TextAlign
-                                .left, // ou center, se quiser centralizar
+                          );
+                        },
+                      ),
+                      Container(
+                        color: const Color(0xFF87A1FA),
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 12,
+                          horizontal: 16,
+                        ),
+                        child: Text(
+                          character.name.toUpperCase(),
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 14.5,
                           ),
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 );
               },
