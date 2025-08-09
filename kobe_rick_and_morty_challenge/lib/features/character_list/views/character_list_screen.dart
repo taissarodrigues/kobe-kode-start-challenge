@@ -5,8 +5,8 @@ import 'dart:ui' as ui;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
 
+import 'package:flutter/widgets.dart';
 
 class CharacterListScreen extends StatefulWidget {
   const CharacterListScreen({super.key});
@@ -30,50 +30,42 @@ class _CharacterListScreenState extends State<CharacterListScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color(0xFF1C1B1F),
-        title: const Text('Rick and Morty'),
-            actions: <Widget>[
-              //IconButton
+        title: const Text('Rick and Mortry'),
+        actions: <Widget>[
+          //IconButton
           IconButton(
             icon: const Icon(Icons.account_circle),
             tooltip: 'Comment Icon',
             onPressed: () {},
-          ), 
-          
-        
-           ],
-        
+          ),
+        ],
       ),
-      
-     drawer: Drawer(
-      child: ListView(
-        padding: EdgeInsets.zero,
+
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
           children: [
-      const DrawerHeader(
-        decoration: BoxDecoration(color: Colors.blue),
-        child: Text('Drawer Header'),
+            const DrawerHeader(
+              decoration: BoxDecoration(color: Colors.blue),
+              child: Text('Drawer Header'),
+            ),
+            ListTile(
+              title: const Text('Item 1'),
+              onTap: () {
+                // Update the state of the app.
+                // ...
+              },
+            ),
+            ListTile(
+              title: const Text('Item 2'),
+              onTap: () {
+                // Update the state of the app.
+                // ...
+              },
+            ),
+          ],
+        ),
       ),
-      ListTile(
-        title: const Text('Item 1'),
-        onTap: () {
-          // Update the state of the app.
-          // ...
-        },
-      ),
-      ListTile(
-        title: const Text('Item 2'),
-        onTap: () {
-          // Update the state of the app.
-          // ...
-        },
-      ),
-    ],
-
-    
-      ),
-     ),
-       
-
-     
 
       body: FutureBuilder<List<Character>>(
         future: _charactersFuture,
@@ -88,33 +80,41 @@ class _CharacterListScreenState extends State<CharacterListScreen> {
               itemCount: characters.length,
               itemBuilder: (context, index) {
                 final character = characters[index];
-                return Card(
-                  color: Theme.of(context).colorScheme.surfaceVariant,
-                  margin: const EdgeInsets.all(8),
-                  child: Padding(
-                    padding: const EdgeInsets.all(8),
+                return SizedBox(
+                  width: 320,
+                  child: Card(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(
+                        10,
+                      ), 
+                    ),
+                    clipBehavior: Clip
+                        .hardEdge, 
                     child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
                         Image.network(
-                          character.image, 
-                          width: double.infinity,
-                          height: 150,
-                          fit: BoxFit.cover,
+                          character.image,
+                          height: 160,
+                          fit: BoxFit.fill,
                         ),
-                        const SizedBox(height: 8),
-                        Text(
-                          character.name,
-                          style: TextStyle(
-                            color: Theme.of(context).colorScheme.onSurfaceVariant,
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
+                        Container(
+                          color: Colors
+                              .blue[300], // cor parecida com o seu azul da imagem
+                          padding: const EdgeInsets.symmetric(
+                            vertical: 12,
+                            horizontal: 16,
                           ),
-                        ),
-                        Text(
-                          character.species,
-                          style: TextStyle(
-                            color: Theme.of(context).colorScheme.onSurfaceVariant.withOpacity(0.7),
+                          child: Text(
+                            character.name
+                                .toUpperCase(), // para deixar em maiúsculas como no exemplo
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 14.5,
+                            ),
+                            textAlign: TextAlign
+                                .left, // ou center, se quiser centralizar
                           ),
                         ),
                       ],

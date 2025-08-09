@@ -1,4 +1,13 @@
-import 'package:flutter/foundation.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter/services.dart';
-import 'dart:ui' as ui;cl
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Rick and Morty App',
+      theme: ThemeData(
+        useMaterial3: true,
+        brightness: Brightness.dark, // Opcional: define tema escuro padrão
+      ),
+      home: const CharacterListScreen(),
+    );
+  }
