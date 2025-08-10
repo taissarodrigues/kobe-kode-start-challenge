@@ -13,10 +13,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Rick and Morty App',
-      theme: ThemeData(
-        useMaterial3: true,
-        brightness: Brightness.dark,
-      ),
+      theme: ThemeData(useMaterial3: true, brightness: Brightness.dark),
       home: const CharacterListScreen(),
     );
   }

@@ -1,6 +1,12 @@
+// lib/features/character_list/views/character_list_screen.dart
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:kobe_rick_and_morty_challenge/widgets/app_barwidget.dart';
+
 import '../../../core/models/character_model.dart';
 import '../../../core/services/api_service.dart';
+import '../../../widgets/app_drawer.dart';
+import 'character_card.dart';
 
 class CharacterListScreen extends StatefulWidget {
   const CharacterListScreen({super.key});
@@ -22,46 +28,9 @@ class _CharacterListScreenState extends State<CharacterListScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // Define a cor de fundo do Scaffold para combinar com o tema escuro
+      appBar: const AppBarwidget(), 
       backgroundColor: const Color(0xFF121212),
-
-      appBar: AppBar(
-        backgroundColor: const Color(0xFF1C1B1F),
-        // ✅ Título corrigido
-        title: const Text('Rick and Morty'),
-        actions: <Widget>[
-          IconButton(
-            icon: const Icon(Icons.account_circle),
-            tooltip: 'Profile',
-            onPressed: () {},
-          ),
-        ],
-      ),
-
-      drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: [
-            const DrawerHeader(
-              decoration: BoxDecoration(color: Colors.blue),
-              child: Text('Drawer Header'),
-            ),
-            ListTile(
-              title: const Text('Item 1'),
-              onTap: () {
-                // Navegar para outra tela ou executar uma ação
-              },
-            ),
-            ListTile(
-              title: const Text('Item 2'),
-              onTap: () {
-                // Navegar para outra tela ou executar uma ação
-              },
-            ),
-          ],
-        ),
-      ),
-
+      drawer: const AppDrawer(),
       body: FutureBuilder<List<Character>>(
         future: _charactersFuture,
         builder: (context, snapshot) {
@@ -75,55 +44,13 @@ class _CharacterListScreenState extends State<CharacterListScreen> {
               itemCount: characters.length,
               itemBuilder: (context, index) {
                 final character = characters[index];
-                return Card(
-                  margin: const EdgeInsets.symmetric(
-                    vertical: 15,
-                    horizontal: 20,
-                  ),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  clipBehavior: Clip.hardEdge,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      Image.network(
-                        character.image,
-                        height: 160,
-                        fit: BoxFit.cover,
-                        loadingBuilder: (context, child, loadingProgress) {
-                          if (loadingProgress == null) return child;
-                          return Container(
-                            height: 160,
-                            color: Colors.grey[800],
-                            child: const Center(
-                              child: CircularProgressIndicator(),
-                            ),
-                          );
-                        },
-                      ),
-                      Container(
-                        color: const Color(0xFF87A1FA),
-                        padding: const EdgeInsets.symmetric(
-                          vertical: 12,
-                          horizontal: 16,
-                        ),
-                        child: Text(
-                          character.name.toUpperCase(),
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 14.5,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                );
+                return CharacterCard(character: character);
               },
             );
           } else {
-            return const Center(child: Text('Nenhum personagem encontrado.'));
+            return const Center(
+              child: Text('Nenhum personagem encontrado.'),
+            );
           }
         },
       ),
