@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:kobe_rick_and_morty_challenge/widgets/app_profile_widget.dart'; 
+import 'package:kobe_rick_and_morty_challenge/widgets/app_profile_widget.dart';
 
 class AppBarwidget extends StatelessWidget implements PreferredSizeWidget {
   final bool showBackButton;
