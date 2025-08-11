@@ -1,4 +1,4 @@
-# kobe_rick_and_morty_challenge
+Kobe Rick and Morty Challenge
 
 Desafio : Rick and Morty App - Kode Start 2025
 
