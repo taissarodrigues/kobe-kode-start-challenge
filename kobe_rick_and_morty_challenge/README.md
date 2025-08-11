@@ -49,5 +49,4 @@ um app Flutter chamado **Kobe Rick and Morty Challenge**, que consome a API ofic
  É uma base sólida que pode ser facilmente estendida e aprimorada.
 
 
-]  
 
