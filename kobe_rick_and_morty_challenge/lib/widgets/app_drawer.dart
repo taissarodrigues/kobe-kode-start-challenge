@@ -1,42 +1,78 @@
-// file: lib/widgets/app_drawer.dart
-
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:kobe_rick_and_morty_challenge/pages/character_list_screen.dart';
+import 'package:kobe_rick_and_morty_challenge/pages/about_screen.dart';
 
 class AppDrawer extends StatelessWidget {
   const AppDrawer({super.key});
 
+  void _navigateTo(BuildContext context, String routeName) {
+    Navigator.pop(context);
+
+    final currentRoute = ModalRoute.of(context)?.settings.name;
+    if (currentRoute != routeName) {
+      Navigator.pushNamed(context, routeName);
+    }
+  }
+
+  Widget _drawerItem({
+    required IconData icon,
+    required String text,
+    required VoidCallback onTap,
+  }) {
+    return ListTile(
+      leading: Icon(icon, color: Colors.white),
+      title: Text(
+        text,
+        style: GoogleFonts.lato(
+          textStyle: const TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.w400,
+            fontSize: 16,
+          ),
+        ),
+      ),
+      onTap: onTap,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
+      backgroundColor: const Color(0xFF121212),
       child: ListView(
         padding: EdgeInsets.zero,
         children: [
           DrawerHeader(
-            decoration: BoxDecoration(
-              color: const Color(0xFF87A1FA),
-            ),
-            child: const Text(
-              'Rick and Morty',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-              ),
+            decoration: const BoxDecoration(color: Color(0xFF1C1B1F)),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                const SizedBox(height: 10),
+                Text(
+                  'Rick and Morty',
+                  style: GoogleFonts.lato(
+                    textStyle: const TextStyle(
+                      color: Colors.white,
+                      letterSpacing: 0.5,
+                      fontWeight: FontWeight.w400,
+                      fontSize: 20,
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
-          ListTile(
-            leading: const Icon(Icons.people),
-            title: const Text('Personagens'),
-            onTap: () {
-              Navigator.pop(context);
-            },
+          _drawerItem(
+            icon: Icons.people,
+            text: 'Characters',
+            onTap: () => _navigateTo(context, CharacterListScreen.routeId),
           ),
-          ListTile(
-            leading: const Icon(Icons.info_outline),
-            title: const Text('Sobre'),
-            onTap: () {
-              Navigator.pop(context);
-            },
+          _drawerItem(
+            icon: Icons.info_outline,
+            text: 'About',
+            onTap: () => _navigateTo(context, AboutScreen.routeId),
           ),
         ],
       ),

@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:kobe_rick_and_morty_challenge/widgets/app_profile_widget.dart';
-
-import 'package:kobe_rick_and_morty_challenge/widgets/app_profile_widget.dart';
+import 'package:kobe_rick_and_morty_challenge/widgets/app_profile_widget.dart'; 
 
 class AppBarwidget extends StatelessWidget implements PreferredSizeWidget {
-  const AppBarwidget({super.key});
+  final bool showBackButton;
+  final String title;
+  final bool showProfileButton;
+
+  const AppBarwidget({
+    super.key,
+    this.showBackButton = false,
+    this.title = 'RICK AND MORTY API',
+    this.showProfileButton = true,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -19,11 +26,22 @@ class AppBarwidget extends StatelessWidget implements PreferredSizeWidget {
           children: [
             Padding(
               padding: const EdgeInsets.only(left: 16.6, top: 22.72),
-              child: InkWell(
-                onTap: () {
-                  Scaffold.of(context).openDrawer();
+              child: Builder(
+                builder: (context) {
+                  return InkWell(
+                    onTap: () {
+                      if (showBackButton) {
+                        Navigator.of(context).pop();
+                      } else {
+                        Scaffold.of(context).openDrawer();
+                      }
+                    },
+                    child: Icon(
+                      showBackButton ? Icons.arrow_back : Icons.menu,
+                      color: Colors.white,
+                    ),
+                  );
                 },
-                child: const Icon(Icons.menu, color: Colors.white),
               ),
             ),
             Column(
@@ -35,7 +53,7 @@ class AppBarwidget extends StatelessWidget implements PreferredSizeWidget {
                 ),
                 const SizedBox(height: 6),
                 Text(
-                  'RICK AND MORTY API',
+                  title,
                   style: GoogleFonts.lato(
                     textStyle: const TextStyle(
                       color: Colors.white,
@@ -47,25 +65,25 @@ class AppBarwidget extends StatelessWidget implements PreferredSizeWidget {
                 ),
               ],
             ),
-            // AQUI ESTÁ A MUDANÇA PARA O ÍCONE DE PERFIL
-            Padding(
-              padding: const EdgeInsets.only(right: 16.6, top: 22.72),
-              child: InkWell(
-                onTap: () {
-                  // Ação para navegar para a tela de perfil
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const ProfileWidget(),
+            showProfileButton
+                ? Padding(
+                    padding: const EdgeInsets.only(right: 16.6, top: 22.72),
+                    child: InkWell(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const ProfileWidget(),
+                          ),
+                        );
+                      },
+                      child: const Icon(
+                        Icons.account_circle_sharp,
+                        color: Colors.white,
+                      ),
                     ),
-                  );
-                },
-                child: const Icon(
-                  Icons.account_circle_sharp,
-                  color: Colors.white,
-                ),
-              ),
-            ),
+                  )
+                : const SizedBox(width: 48),
           ],
         ),
       ),

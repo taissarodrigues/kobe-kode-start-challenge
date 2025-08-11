@@ -1,14 +1,13 @@
-// lib/features/character_list/views/character_list_screen.dart
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:kobe_rick_and_morty_challenge/core/models/character_model.dart';
+import 'package:kobe_rick_and_morty_challenge/repositories/character_repository.dart';
 import 'package:kobe_rick_and_morty_challenge/widgets/app_barwidget.dart';
-
-import '../../../core/models/character_model.dart';
-import '../../../core/services/api_service.dart';
-import '../../../widgets/app_drawer.dart';
-import 'character_card.dart';
+import 'package:kobe_rick_and_morty_challenge/widgets/app_drawer.dart';
+import 'package:kobe_rick_and_morty_challenge/widgets/character_card.dart';
 
 class CharacterListScreen extends StatefulWidget {
+  static const String routeId = '/';
+
   const CharacterListScreen({super.key});
 
   @override
@@ -16,19 +15,20 @@ class CharacterListScreen extends StatefulWidget {
 }
 
 class _CharacterListScreenState extends State<CharacterListScreen> {
+  late final CharacterRepository _repository;
   late Future<List<Character>> _charactersFuture;
-  final ApiService _apiService = ApiService();
 
   @override
   void initState() {
     super.initState();
-    _charactersFuture = _apiService.getCharacters();
+    _repository = CharacterRepository();
+    _charactersFuture = _repository.getCharacters();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const AppBarwidget(), 
+      appBar: const AppBarwidget(),
       backgroundColor: const Color(0xFF121212),
       drawer: const AppDrawer(),
       body: FutureBuilder<List<Character>>(
@@ -48,9 +48,7 @@ class _CharacterListScreenState extends State<CharacterListScreen> {
               },
             );
           } else {
-            return const Center(
-              child: Text('Nenhum personagem encontrado.'),
-            );
+            return const Center(child: Text('Nenhum personagem encontrado.'));
           }
         },
       ),
