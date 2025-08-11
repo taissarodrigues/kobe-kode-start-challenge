@@ -36,7 +36,7 @@ um app Flutter chamado **Kobe Rick and Morty Challenge**, que consome a API ofic
 
 ---
 
-## Arquitetura e boas práticas
+## Arquitetura e boas práticas do projeto
 
 - Separação clara entre lógica de dados e interface.
 - Uso de modelos para mapear JSON da API em objetos Dart.
