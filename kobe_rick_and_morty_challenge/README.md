@@ -1,6 +1,6 @@
 ## Kobe Rick and Morty Challenge
 
-Desafio : Rick and Morty App - Kode Start 2025
+Desafio: Rick and Morty App - Kode Start 2025
 
 Este repositório contém a solução para o desafio de desenvolvimento Flutter proposto no evento **Kode Start 2025**, organizado pela Kobe.
 
@@ -10,8 +10,7 @@ Por: Taissa Rodrigues
 
 ## Sobre o projeto
 
-Este projeto é um **fork** do repositório original **Kobe Start Challenge**. A partir dele, desenvolvi 
-um app Flutter chamado **Kobe Rick and Morty Challenge**, que consome a API oficial da série Rick and Morty para exibir informações dos personagens.
+Este projeto é um **fork** do repositório original **Kobe Start Challenge**. A partir dele, desenvolvi um app Flutter chamado **Kobe Rick and Morty Challenge**, que consome a API oficial da série Rick and Morty para exibir informações dos personagens.
 
 ---
 
@@ -32,7 +31,7 @@ um app Flutter chamado **Kobe Rick and Morty Challenge**, que consome a API ofic
 - Tela de perfil com informações estáticas (nome, email, usuário).
 - Tema escuro utilizando Material 3.
 - Testes unitários para a camada de dados (repositório).
-- Testes de widget para componentes importantes da tela incial(AppBarwidget).
+- Testes de widget para componentes importantes da tela inicial (AppBarwidget).
 
 ---
 
@@ -46,7 +45,4 @@ um app Flutter chamado **Kobe Rick and Morty Challenge**, que consome a API ofic
 - Tratamento de carregamento assíncrono e erros na requisição HTTP.
 - Testes automatizados para garantir estabilidade do código.
 
- É uma base sólida que pode ser facilmente estendida e aprimorada.
-
-
-
+É uma base sólida que pode ser facilmente estendida e aprimorada.
